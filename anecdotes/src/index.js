@@ -7,6 +7,18 @@ const Button = ({onClick, text}) => (
   </button>
 )
 
+const HighestVote = ({votes, anecdotes}) => {
+  const most_votes = Math.max.apply(Math, votes)
+  const most_voted_element = anecdotes[votes.indexOf(most_votes)]
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <p>{most_voted_element}</p>
+      <p>Has {most_votes} votes</p>
+    </div>
+  )
+}
+
 const App = (props) => {
   
   const [votes, setVotes] = useState(new Array(props.anecdotes.length).fill(0))
@@ -31,6 +43,7 @@ const App = (props) => {
       <p>Has {votes[props.anecdotes.indexOf(selected)]} votes</p>
       <Button onClick = {handleRandomAnecdote} text = "Next anecdote"/>
       <Button onClick ={handleVote} text = "Vote"/>
+      <HighestVote votes = {votes} anecdotes={props.anecdotes}/>
     </div>
   )
 }
